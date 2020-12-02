@@ -37,11 +37,12 @@ const Input = styled.input`
   text-align: center;
 `
 const Button = styled.button`
-  width: 100%;
+  width: 40%;
+  color: #ffffff;
   height: 5.6rem;
   border-radius: 1rem;
   position: relative;
-  background-color: rgba(0, 90, 156, 0.5);
+  background-color: rgba(0, 90, 156, 0.6);
   transition: 0.5s all;
   font-size: 16px;
   font-weight: 400;
