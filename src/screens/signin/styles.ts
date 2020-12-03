@@ -22,6 +22,10 @@ const Div = styled.div`
   margin-top: 10%;
   width: 50%;
   margin-left: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `
 
 const Input = styled.input`
