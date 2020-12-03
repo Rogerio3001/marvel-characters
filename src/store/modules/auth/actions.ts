@@ -11,3 +11,13 @@ export function signinRequest({ privateKey, publicKey }: signinRequestParams) {
     publicKey
   })
 }
+
+export function signinSucess({ characters }: { characters: [] }) {
+  return action('@auth/SIGN_IN_SUCESS', {
+    characters
+  })
+}
+
+export function signinFailure() {
+  return action('@auth/SIGN_IN_FAILURE')
+}
