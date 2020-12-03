@@ -1,12 +1,14 @@
 import React from 'react'
-import Signin from './screens/signin'
 import { Provider } from 'react-redux'
 import { store } from './store'
+import Routes from './routes'
 
 function App() {
   return (
     <Provider store={store}>
-      <Signin />
+      <div>
+        <Routes />
+      </div>
     </Provider>
   )
 }

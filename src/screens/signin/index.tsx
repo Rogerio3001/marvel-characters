@@ -5,11 +5,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { StoreState } from '../../store/createStore'
 import { signinRequest } from '../../store/modules/auth/actions'
 
+import { useHistory } from 'react-router-dom'
+
 function Signin() {
   const { loadingSignInRequest, isSignedIn, error, characters } = useSelector(
     (state: StoreState) => state.auth
   )
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const [publicKey, setPublicKey] = useState('')
   const [privateKey, setPrivate] = useState('')
@@ -19,19 +22,21 @@ function Signin() {
   console.log('error: ' + error)
   console.log('characters: ' + characters)
 
+  isSignedIn && history.push('/home')
+
   return (
     <Div>
       <H1>Dados de acesso</H1>
       <Input
         type="text"
         name="publicKey"
-        defaultValue="Public Key"
+        placeholder="Public Key"
         onChange={(e) => setPublicKey(e.target.value)}
       />
       <Input
         type="text"
         name="privateKey"
-        defaultValue="Private Key"
+        placeholder="Private Key"
         onChange={(e) => setPrivate(e.target.value)}
       />
       <Button
