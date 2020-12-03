@@ -1,17 +1,26 @@
 import React, { useState } from 'react'
 import { H1, Form, Div, Input, Button } from './styles'
 
-import { RouteComponentProps, navigate } from '@reach/router'
+/* import { RouteComponentProps, navigate } from '@reach/router' */
 
 import api, { endPoints } from '../../services/api'
 import md5 from 'md5'
 
+import { useDispatch, useSelector } from 'react-redux'
+import { StoreState } from '../../store/createStore'
+import { signinRequest } from '../../store/modules/auth/actions'
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function Signin(props: RouteComponentProps) {
+function Signin() {
+  const { loadingSignInRequest } = useSelector(
+    (state: StoreState) => state.auth
+  )
+  const dispatch = useDispatch()
+
   const [publicKey, setPublicKey] = useState('')
   const [privateKey, setPrivate] = useState('')
 
-  function handleSubmit(): void {
+  /* function handleSubmit(): void {
     const currentDate = new Date()
     const timestamp = currentDate.getTime()
     const toHash = timestamp + privateKey + publicKey
@@ -32,12 +41,12 @@ function Signin(props: RouteComponentProps) {
       .then((res) => console.log(res.data.data))
       .catch((err) => console.log(err))
     navigate(`/home`)
-  }
+  } */
 
   return (
     <Div>
       <H1>Dados de acesso</H1>
-      <Form onSubmit={handleSubmit}>
+      <Form>
         <Input
           type="text"
           name="publicKey"
@@ -50,8 +59,10 @@ function Signin(props: RouteComponentProps) {
           defaultValue="Private Key"
           onChange={(e) => setPrivate(e.target.value)}
         />
-        <Button type="submit" /* disabled={isSubmitting || errors} */>
-          Acessar
+        <Button
+          onClick={() => dispatch(signinRequest({ privateKey, publicKey }))}
+        >
+          {loadingSignInRequest ? 'Acessar' : 'Carregando'}
         </Button>
       </Form>
     </Div>
