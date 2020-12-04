@@ -8,7 +8,7 @@ export default function Character({
   handleImageTouch
 }: {
   character: character
-  handleImageTouch: any
+  handleImageTouch?: any
 }) {
   return (
     <Div>
@@ -19,7 +19,7 @@ export default function Character({
           character.thumbnail.extension
         }
         alt={'character-' + character.name}
-        onClick={() => handleImageTouch(character.id)}
+        onClick={() => handleImageTouch && handleImageTouch(character.id)}
       />
       <h2>{character.name}</h2>
     </Div>
