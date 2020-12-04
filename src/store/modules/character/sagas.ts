@@ -66,7 +66,35 @@ export function* character({
   }
 }
 
+//Get ONE character
+export function* comics({ payload }: ActionType<typeof actions.comicsRequest>) {
+  try {
+    const { privateKey, publicKey, id } = payload
+
+    const ts = new Date().getTime()
+    const toHash = ts + privateKey + publicKey
+    const hash = md5(toHash.toString())
+
+    const { data } = yield call(api.get, `/characters/${id}/comics`, {
+      params: {
+        ts,
+        apikey: publicKey,
+        hash,
+        limit: 20
+      }
+    })
+    yield put(
+      actions.comicsSucess({
+        comics: data.data.results
+      })
+    )
+  } catch (err) {
+    yield put(actions.comicsFailure())
+  }
+}
+
 export default all([
   takeLatest('@character/GET_CHARACTERS', characters),
-  takeLatest('@character/GET_CHARACTER_ID', character)
+  takeLatest('@character/GET_CHARACTER_ID', character),
+  takeLatest('@character/GET_COMICS', comics)
 ])

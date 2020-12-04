@@ -47,6 +47,23 @@ export default function auth(
         loadingSignInRequest: false,
         error: true
       }
+    case '@character/GET_COMICS':
+      return {
+        ...state,
+        loadingSignInRequest: true
+      }
+    case '@character/GET_COMICS_SUCESS':
+      return {
+        ...state,
+        loadingSignInRequest: false,
+        comics: action.payload.comics
+      }
+    case '@character/GET_COMICS_FAILURE':
+      return {
+        ...state,
+        loadingSignInRequest: false,
+        error: true
+      }
     default:
       return state
   }

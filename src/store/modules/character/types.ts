@@ -9,4 +9,5 @@ export interface CharacterState {
   readonly characters: any
   readonly totalPages: number
   readonly id?: string
+  readonly comics?: any
 }

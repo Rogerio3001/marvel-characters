@@ -4,6 +4,7 @@ import { character } from './types'
 
 import { Ul, Div, Li, H1 } from './styles'
 
+import Character from '../../componentes/character'
 import ReactPaginate from 'react-paginate'
 import './style.css'
 
@@ -56,20 +57,11 @@ export default function Home() {
       <H1>Characters List</H1>
       <Ul>
         {characters.map((character: character, index: number) => (
-          <div key={index}>
-            <Li>
-              <img
-                src={
-                  character.thumbnail.path +
-                  '/standard_xlarge.' +
-                  character.thumbnail.extension
-                }
-                alt={'character-' + character.name}
-                onClick={() => handleImageTouch(character.id)}
-              />
-              <h2>{character.name}</h2>
-            </Li>
-          </div>
+          <Character
+            key={index}
+            character={character}
+            handleImageTouch={handleImageTouch}
+          />
         ))}
       </Ul>
       <div id="#pagination">

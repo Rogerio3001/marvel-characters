@@ -61,3 +61,27 @@ export function characterSucess({ characters }: { characters: [] }) {
 export function characterFailure() {
   return action('@character/GET_CHARACTER_FAILURE_ID')
 }
+
+//sending reqeuest to get commics
+
+export function comicsRequest({
+  privateKey,
+  publicKey,
+  id
+}: charactersRequestParams) {
+  return action('@character/GET_COMICS', {
+    privateKey,
+    publicKey,
+    id
+  })
+}
+
+export function comicsSucess({ comics }: { comics: [] }) {
+  return action('@character/GET_COMICS_SUCESS', {
+    comics
+  })
+}
+
+export function comicsFailure() {
+  return action('@character/GET_COMICS_FAILURE')
+}
