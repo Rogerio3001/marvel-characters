@@ -30,6 +30,23 @@ export default function auth(
         loadingSignInRequest: false,
         error: true
       }
+    case '@character/GET_CHARACTER_ID':
+      return {
+        ...state,
+        loadingSignInRequest: true
+      }
+    case '@character/GET_CHARACTER_SUCESS_ID':
+      return {
+        ...state,
+        loadingSignInRequest: false,
+        characters: action.payload.characters
+      }
+    case '@character/GET_CHARACTER_FAILURE_ID':
+      return {
+        ...state,
+        loadingSignInRequest: false,
+        error: true
+      }
     default:
       return state
   }

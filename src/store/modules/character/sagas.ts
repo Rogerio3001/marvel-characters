@@ -5,6 +5,7 @@ import { takeLatest, call, put, all } from 'redux-saga/effects'
 import api, { endPoints } from '../../../services/api'
 import md5 from 'md5'
 
+//Get ALL character
 export function* characters({
   payload
 }: ActionType<typeof actions.charactersRequest>) {
@@ -35,4 +36,37 @@ export function* characters({
   }
 }
 
-export default all([takeLatest('@character/GET_CHARACTERS', characters)])
+//Get ONE character
+export function* character({
+  payload
+}: ActionType<typeof actions.characterRequest>) {
+  try {
+    const { offset, privateKey, publicKey, id } = payload
+
+    const ts = new Date().getTime()
+    const toHash = ts + privateKey + publicKey
+    const hash = md5(toHash.toString())
+
+    const { data } = yield call(api.get, `/characters/${id}`, {
+      params: {
+        ts,
+        apikey: publicKey,
+        hash,
+        offset,
+        limit: 20
+      }
+    })
+    yield put(
+      actions.characterSucess({
+        characters: data.data.results
+      })
+    )
+  } catch (err) {
+    yield put(actions.characterFailure())
+  }
+}
+
+export default all([
+  takeLatest('@character/GET_CHARACTERS', characters),
+  takeLatest('@character/GET_CHARACTER_ID', character)
+])

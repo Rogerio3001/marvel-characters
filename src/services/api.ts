@@ -6,7 +6,7 @@ export default axios.create({
 
 const endPoints = {
   CHARACTERS: '/characters',
-  CHARACTERS_ID: (id: number) => `/characters/${id}`
+  CHARACTERS_ID: (id: string) => `/characters/${id}`
 }
 
 export { endPoints }

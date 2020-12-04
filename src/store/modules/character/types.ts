@@ -8,4 +8,5 @@ export interface CharacterState {
   readonly error: boolean
   readonly characters: any
   readonly totalPages: number
+  readonly id?: string
 }

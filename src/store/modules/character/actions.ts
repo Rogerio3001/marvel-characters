@@ -4,8 +4,10 @@ export type charactersRequestParams = {
   privateKey: string
   publicKey: string
   offset: number
+  id?: string
 }
 
+//Sending request to get all characters
 export function charactersRequest({
   privateKey,
   publicKey,
@@ -33,4 +35,29 @@ export function charactersSucess({
 
 export function charactersFailure() {
   return action('@character/GET_CHARACTERS_FAILURE')
+}
+
+//sending requesto to get only one character
+export function characterRequest({
+  privateKey,
+  publicKey,
+  offset,
+  id
+}: charactersRequestParams) {
+  return action('@character/GET_CHARACTER_ID', {
+    privateKey,
+    publicKey,
+    offset,
+    id
+  })
+}
+
+export function characterSucess({ characters }: { characters: [] }) {
+  return action('@character/GET_CHARACTER_SUCESS_ID', {
+    characters
+  })
+}
+
+export function characterFailure() {
+  return action('@character/GET_CHARACTER_FAILURE_ID')
 }

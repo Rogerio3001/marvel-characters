@@ -10,6 +10,7 @@ import './style.css'
 import { StoreState } from '../../store/createStore'
 import { useDispatch, useSelector } from 'react-redux'
 import { charactersRequest } from '../../store/modules/character/actions'
+import { useHistory } from 'react-router-dom'
 
 export default function Home() {
   const { privateKey, publicKey } = useSelector(
@@ -20,6 +21,7 @@ export default function Home() {
     (state: StoreState) => state.character
   )
   const dispatch = useDispatch()
+  const history = useHistory()
 
   useEffect(() => {
     dispatch(
@@ -45,23 +47,29 @@ export default function Home() {
       })
     )
   }
+  function handleImageTouch(id: string) {
+    history.push('/details/' + id)
+  }
 
   return (
     <Div>
       <H1>Characters List</H1>
       <Ul>
         {characters.map((character: character, index: number) => (
-          <Li key={index}>
-            <img
-              src={
-                character.thumbnail.path +
-                '/standard_xlarge.' +
-                character.thumbnail.extension
-              }
-              alt="Characters"
-            />
-            <h2>{character.name}</h2>
-          </Li>
+          <div key={index}>
+            <Li>
+              <img
+                src={
+                  character.thumbnail.path +
+                  '/standard_xlarge.' +
+                  character.thumbnail.extension
+                }
+                alt={'character-' + character.name}
+                onClick={() => handleImageTouch(character.id)}
+              />
+              <h2>{character.name}</h2>
+            </Li>
+          </div>
         ))}
       </Ul>
       <div id="#pagination">
