@@ -7,5 +7,5 @@ export interface AuthState {
   readonly loadingSignInRequest: boolean
   readonly isSignedIn: boolean
   readonly error: boolean
-  readonly characters: []
+  readonly characters: any
 }

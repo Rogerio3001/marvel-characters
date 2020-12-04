@@ -23,7 +23,7 @@ export function* signIn({ payload }: ActionType<typeof actions.signinRequest>) {
       }
     })
 
-    yield put(actions.signinSucess({ characters: data.data }))
+    yield put(actions.signinSucess({ characters: data.data.results }))
   } catch (err) {
     yield put(actions.signinFailure())
   }
