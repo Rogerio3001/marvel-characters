@@ -1,6 +1,6 @@
 import { action } from 'typesafe-actions'
 
-type signinRequestParams = {
+export type signinRequestParams = {
   privateKey: string
   publicKey: string
 }

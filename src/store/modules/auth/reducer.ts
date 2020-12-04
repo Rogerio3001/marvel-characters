@@ -4,7 +4,9 @@ const initialState: AuthState = {
   loadingSignInRequest: false,
   isSignedIn: false,
   error: false,
-  characters: []
+  characters: [],
+  privateKey: null,
+  publicKey: null
 }
 
 export default function auth(
@@ -15,7 +17,9 @@ export default function auth(
     case '@auth/SIGN_IN_REQUEST':
       return {
         ...state,
-        loadingSignInRequest: true
+        loadingSignInRequest: true,
+        privateKey: action.payload.privateKey,
+        publicKey: action.payload.publicKey
       }
     case '@auth/SIGN_IN_SUCESS':
       return {
