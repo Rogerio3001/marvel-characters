@@ -8,7 +8,7 @@ import { signinRequest } from '../../store/modules/auth/actions'
 import { useHistory } from 'react-router-dom'
 
 function Signin() {
-  const { loadingSignInRequest, isSignedIn, error, characters } = useSelector(
+  const { loadingSignInRequest, isSignedIn } = useSelector(
     (state: StoreState) => state.auth
   )
   const dispatch = useDispatch()
@@ -16,11 +16,6 @@ function Signin() {
 
   const [publicKey, setPublicKey] = useState('')
   const [privateKey, setPrivate] = useState('')
-
-  console.log('loadingSignInRequest: ' + loadingSignInRequest)
-  console.log('isSignedIn: ' + isSignedIn)
-  console.log('error: ' + error)
-  console.log('characters: ' + characters)
 
   isSignedIn && history.push('/home')
 

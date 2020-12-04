@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { character } from './types'
 
@@ -12,21 +12,31 @@ import { useDispatch, useSelector } from 'react-redux'
 import { charactersRequest } from '../../store/modules/character/actions'
 
 export default function Home() {
-  const {
-    characters,
-    privateKey,
-    publicKey,
-    loadingSignInRequest
-  } = useSelector((state: StoreState) => state.auth)
+  const { privateKey, publicKey } = useSelector(
+    (state: StoreState) => state.auth
+  )
+
+  const { totalPages, characters } = useSelector(
+    (state: StoreState) => state.character
+  )
   const dispatch = useDispatch()
 
-  console.log(characters)
-  console.log('loadingSignInRequest: ' + loadingSignInRequest)
+  useEffect(() => {
+    dispatch(
+      charactersRequest({
+        privateKey: privateKey || 'Nulo',
+        publicKey: publicKey || 'Nulo',
+        offset: 0
+      })
+    )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const pages = Math.ceil(totalPages / 20)
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function handlePageClick(e: any) {
     // TODO: Encontrar uma abordagem melhor para essa situação
-    console.log('Pagina: ' + e.selected)
     dispatch(
       charactersRequest({
         privateKey: privateKey || 'Nulo',
@@ -35,6 +45,7 @@ export default function Home() {
       })
     )
   }
+
   return (
     <Div>
       <H1>Characters List</H1>
@@ -59,7 +70,7 @@ export default function Home() {
           nextLabel={'>'}
           breakLabel={'...'}
           breakClassName={'break-me'}
-          pageCount={20}
+          pageCount={pages}
           marginPagesDisplayed={5}
           pageRangeDisplayed={10}
           onPageChange={handlePageClick}

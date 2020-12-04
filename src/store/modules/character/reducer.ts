@@ -13,16 +13,11 @@ export default function auth(
 ): CharacterState {
   switch (action.type) {
     case '@character/GET_CHARACTERS':
-      console.log('entrou no switch case')
       return {
         ...state,
         loadingSignInRequest: true
       }
     case '@character/GET_CHARACTERS_SUCESS':
-      console.log(
-        'entrou no reducer: ' + JSON.stringify(action.payload.characters)
-      )
-      console.log('entrou no reducer: ' + action.payload.totalPages)
       return {
         ...state,
         loadingSignInRequest: false,

@@ -9,7 +9,6 @@ export function* characters({
   payload
 }: ActionType<typeof actions.charactersRequest>) {
   try {
-    console.log('vai fazer a request')
     const { offset, privateKey, publicKey } = payload
 
     const ts = new Date().getTime()
